@@ -41,9 +41,9 @@ def encode(filepath):
     a_i = get_codec(filepath, channel='a:0')
     a = audio
     if a_i == []:
-        audio_opts = ''
-    else:
         audio_opts = 'acc , opus , copy'
+    else:
+        audio_opts = ' '
         if a == 'aac':
             audio_opts += ' -c:a aac -b:a 128k'
         elif a == 'opus':
