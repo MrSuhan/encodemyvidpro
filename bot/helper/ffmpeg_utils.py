@@ -38,13 +38,18 @@ def encode(filepath):
         # Transcode to h265 / hvc1
         video_opts = '-c:v libx265 -crf 28 -tag:v hvc1 -preset fast -threads 8'
     # Get the audio channel codec
-    audio_codec = get_codec(filepath, channel='a:0')
-    if audio_codec == []:
+    a_i = get_codec(filepath, channel='a:0')
+    a = audio
+    if a_i == []:
         audio_opts = ''
-    elif audio_codec[0] == 'aac':
-        audio_opts = '-c:a copy'
     else:
-        audio_opts = '-c:a aac -b:a 128k'
+        audio_opts = '-map 0:a?'
+        if a == 'aac':
+            audio_opts += ' -c:a aac -b:a 128k'
+        elif a == 'opus':
+            audio_opts += ' -c:a libopus -vbr on -b:a 96k'
+        elif a == 'copy':
+            audio_opts += ' -c:a copy'
     call(['ffmpeg', '-i', filepath] + video_opts.split() + audio_opts.split() + [output_filepath])
     os.remove(filepath)
     return output_filepath
