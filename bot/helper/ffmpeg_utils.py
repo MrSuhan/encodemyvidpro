@@ -41,8 +41,9 @@ def encode(filepath):
     if audio_codec == []: 
          audio_opts = '' 
     elif audio_codec[0] == 'aac': 
-    audio_opts = '-c:a copy' 
-    else: audio_opts = '-c:a aac -b:a 128k -c:a copy'
+         audio_opts = '-c:a copy' 
+    else: 
+        audio_opts = '-c:a copy -b:a 128k'
     call(['ffmpeg', '-i', filepath] + video_opts.split() + audio_opts.split() + [output_filepath])
     os.remove(filepath)
     return output_filepath
