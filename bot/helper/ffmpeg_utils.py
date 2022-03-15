@@ -40,7 +40,7 @@ def encode(filepath):
     # Get the audio channel codec
     if audio_codec == []: 
          audio_opts = '' 
-    elif audio_codec[0] == 'aac': 
+    elif audio_codec[0] == 'copy': 
          audio_opts = '-c:a copy' 
     else: 
         audio_opts = '-c:a copy -b:a 128k'
