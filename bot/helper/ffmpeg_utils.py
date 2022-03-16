@@ -40,7 +40,7 @@ def encode(filepath):
     # Get the audio channel codec
     if audio_codec == []: 
          audio_opts = '' 
-    elif audio_codec[0] == 'acc': 
+    elif audio_codec[0] == 'Vorbis': 
          audio_opts = '-c:a copy' 
     else: 
         audio_opts = '-c:a acc -b:a 128k'
