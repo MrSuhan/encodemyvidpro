@@ -40,11 +40,11 @@ def encode(filepath):
     # Get the audio channel codec
     if audio_codec == []: 
          audio_opts = '' 
-    elif audio_codec[0] == 'copy': 
+    elif audio_codec[0] == 'acc': 
          audio_opts = '-c:a copy' 
     else: 
-        audio_opts = '-c:a copy -b:a 128k'
-    call(['ffmpeg', '-i', filepath] + video_opts.split() + audio_opts.split() + [output_filepath])
+        audio_opts = '-c:a acc -b:a 128k'
+    call(['ffmpeg', '-i', filepath] + video_opts.split() + audio_opts.split() + audio_opts.split() + [output_filepath])
     os.remove(filepath)
     return output_filepath
 
