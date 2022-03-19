@@ -38,9 +38,9 @@ def encode(filepath):
         # Transcode to h265 / hvc1
         video_opts = ' -i -c:v libx265 -c:a copy -x265-params crf=28 -preset fast -threads 8'
     # Get the audio channel codec
-    if audio_codec == 'opus': 
+    if audio_codec[0] == []: 
          audio_opts = '' 
-    elif audio_codec[0] == 'acc': 
+    elif audio_codec[1] == 'acc': 
          audio_opts = '-c:a copy' 
     else: 
         audio_opts = '-c:a acc -ac 2 -ab 128k'
