@@ -44,7 +44,13 @@ def encode(filepath):
          audio_opts = '-c:a copy' 
     else: 
         audio_opts = '-c:a acc -ac 2 -ab 128k'
-    call(['ffmpeg', '-i', filepath] + video_opts.split() + audio_opts.split() + [output_filepath])
+    # Copy Subtitles
+    subs_i = get_codec(filepath, channel='s:0')
+    if subs_i == []:
+        subtitles = ''
+    else:
+        subtitles = '-c:s copy -map 0:s?'
+    call(['ffmpeg', '-i', filepath] + video_opts.split() + audio_opts.split() + subtitles + [output_filepath])
     os.remove(filepath)
     return output_filepath
 
