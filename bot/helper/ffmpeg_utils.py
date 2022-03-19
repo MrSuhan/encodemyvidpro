@@ -50,7 +50,7 @@ def encode(filepath):
         subtitles = ''
     else:
         subtitles = '-c:s copy -map 0:s?'
-    call(['ffmpeg', '-i', filepath] + video_opts.split() + audio_opts.split() + subtitles + [output_filepath])
+    call(['ffmpeg', '-i', filepath] + video_opts.split() + audio_opts.split() + subtitles.split() + [output_filepath])
     os.remove(filepath)
     return output_filepath
 
