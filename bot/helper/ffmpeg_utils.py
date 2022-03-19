@@ -37,13 +37,19 @@ def encode(filepath):
     else:
         # Transcode to h265 / hvc1
         video_opts = ' -i -c:v libx265 -c:a copy -x265-params crf=28 -preset fast -threads 8'
-    # Get the audio channel codec
-    if audio_codec == []: 
-         audio_opts = '' 
-    elif audio_codec[0] == 'acc': 
-         audio_opts = '-c:a copy' 
-    else: 
-        audio_opts = '-c:a copy -ac 2 -ab 128k'
+        # Audio
+    a_i = get_codec(filepath, channel='a:0')
+    a = audio
+    if a_i == []:
+        audio_opts = ''
+    else:
+        audio_opts = '-map 0:a?'
+        if a == 'aac':
+            audio_opts += ' -c:a aac -b:a 128k'
+        elif a == 'opus':
+            audio_opts += ' -c:a libopus -vbr on -b:a 96k'
+        elif a == 'copy':
+            audio_opts += ' -c:a copy'
     # Copy Subtitles
     subs_i = get_codec(filepath, channel='s:0')
     if subs_i == []:
